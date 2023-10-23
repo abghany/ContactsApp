@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
@@ -49,28 +50,27 @@ fun ContactDetailSheet(
         visible = isOpen,
         modifier = modifier.fillMaxWidth()
     ) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.TopStart
-        ) {
+        Box(modifier = Modifier.fillMaxSize()) {
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(Modifier.height(64.dp))
+                Spacer(Modifier.height(48.dp))
                 ContactPhoto(
                     contact = selectedContact,
-                    iconSize = 48.dp,
+                    iconSize = 32.dp,
                     modifier = Modifier
-                        .size(150.dp)
+                        .size(80.dp)
                 )
                 Spacer(Modifier.height(16.dp))
                 Text(
                     text = "${selectedContact?.firstName} ${selectedContact?.lastName}",
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth(),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 32.sp
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 24.sp
                 )
                 Spacer(Modifier.height(16.dp))
                 EditRow(
@@ -83,14 +83,14 @@ fun ContactDetailSheet(
                         onEvent(ContactListEvent.DeleteContact)
                     }
                 )
-                Spacer(Modifier.height(16.dp))
+                Spacer(Modifier.height(24.dp))
                 ContactInfoSection(
                     title = "Phone number",
                     value = selectedContact?.phoneNumber ?: "-",
                     icon = Icons.Rounded.Phone,
                     modifier = Modifier.fillMaxWidth()
                 )
-                Spacer(Modifier.height(16.dp))
+                Spacer(Modifier.height(24.dp))
                 ContactInfoSection(
                     title = "Email",
                     value = selectedContact?.email ?: "-",
@@ -102,11 +102,14 @@ fun ContactDetailSheet(
             IconButton(
                 onClick = {
                     onEvent(ContactListEvent.DismissContact)
-                }
+                },
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .size(40.dp)
             ) {
                 Icon(
-                    imageVector = Icons.Rounded.Close,
-                    contentDescription = "Close"
+                    imageVector = Icons.Rounded.ArrowBack,
+                    contentDescription = "Back"
                 )
             }
         }

@@ -16,6 +16,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -33,13 +34,18 @@ fun ContactListScreen(
     state: ContactListState,
     newContact: Contact?,
     onEvent: (ContactListEvent) -> Unit,
-    imagePicker: ImagePicker
+    imagePicker: ImagePicker,
 ) {
     imagePicker.registerPicker { imageBytes ->
         onEvent(ContactListEvent.OnPhotoPicked(imageBytes))
     }
 
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "Contacts") }
+            )
+        },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { onEvent(ContactListEvent.OnAddNewContactClick) },
@@ -51,10 +57,11 @@ fun ContactListScreen(
                 )
             }
         }
-    ) {
+    ) { innerPadding ->
         LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(vertical = 16.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             item {
@@ -72,7 +79,7 @@ fun ContactListScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp),
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.SemiBold
                 )
             }
 
